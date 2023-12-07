@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html >
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #666;
+        }
+
+        input {
+            width: 200px;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+
+        .math {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+    </style>
+
+
+
+    <h2>Calculator :Sửa phân liều sai</h2>
+    
+      <label for="dp">Phân liều theo kế hoạch (dp) :</label>
+      <input type="number" id="dp" placeholder="Enter dp">
+    
+    <br>  
+    
+    
+      <label for="de">Phân liều sai (de):</label>
+      <input type="number" id="de" placeholder="Enter de">
+    
+    <br>
+     
+    
+      <label for="Dp">Tổng phân liều theo kế hoạch (Dp) :</label>
+      <input type="number" id="Dp" placeholder="Enter Dp">
+    
+    <br>
+
+    
+      <label for="De">Tổng phân liều sai (De) :</label>
+      <input type="number" id="De" placeholder="Enter De">
+    
+    <br>
+
+    <button onclick="calculate()">Calculate dc</button>
+    
+    <br>
+
+    <p id="result" class="math"></p>
+
+    <script>
+        function calculate() {
+            // Lấy giá trị từ ô nhập liệu
+            var dp = parseFloat(document.getElementById("dp").value);
+            var de = parseFloat(document.getElementById("de").value);
+            var Dp = parseFloat(document.getElementById("Dp").value);
+            var De = parseFloat(document.getElementById("De").value);
+
+            // Kiểm tra xem có giá trị hợp lệ không
+            if (isNaN(dp) || isNaN(de) || isNaN(Dp) || isNaN(De)) {
+                document.getElementById("result").innerHTML = "Vui lòng nhập giá trị hợp lệ cho tất cả các ô.";
+                return;
+            }
+
+            // Tính toán giá trị của dc theo công thức
+            var dc = ((Dp * dp) - (De * de)) / (Dp - De);
+
+            // Hiển thị kết quả sử dụng MathJax để chèn công thức toán học
+            document.getElementById("result").innerHTML = "Phân liều hiệu chỉnh (dc): " + dc.toFixed(2) + "Gy";
+            MathJax.typeset();
+        }
+    </script>
