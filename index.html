@@ -1,0 +1,95 @@
+<html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyển phác đồ thị</title>
+    <h1>
+      Phép tính dùng trong chuyển phác đồ thị 
+    </h1>
+    <h2>
+      <subtitle>Dùng cho trường hợp cần tìm biến trong phương trình</subtitle>
+    </h2>
+    <style>
+        body {
+            .h1{text-align:center;}
+form{margin:20px;}
+label{display:inline-block;
+width:150px;}
+input[type="number"]{width:100px;
+margin-bottom:10px;}
+button{margin-top:10px;}
+#result{
+     margin:20px;
+     font-size:24px;
+     font-weight: bold;}
+        }
+    </style>
+
+
+
+<div id="calculator">
+    <div>
+      <label for="n1">Số phân liều thứ nhất n1: </label>
+      <input type="number" id="n1" step="1">
+    </div>
+    <br>
+    <div>
+      <label for="d1">Phân liều thứ nhất d1(Gy): </label>
+      <input type="number" id="d1" step="0.1">  
+    </div>
+    <br>
+  
+    <div>
+      <label for="n2">Số phân liều thứ hai n2: </label>
+      <input type="number" id="n2" step="0.1">
+    </div>
+    <br>
+    
+    <div>
+      <label for="d2">Phân liều thứ hai d2(Gy): </label>
+      <input type="number" id="d2" step="0.1">
+    </div>
+    <br>
+    
+    <div>
+      <label for="alphaBetaRatio">Tỉ số giữa Alpha và Beta (α/β): </label>
+      <input type="number" id="alphaBetaRatio" step="0.1"> 
+    </div>
+    <br>
+      
+    <button onclick="calculateValues()"><b>Calculate</b></button>
+    <br>
+</div>
+
+<script>
+    function calculateValues() {
+        const n1 = parseFloat(document.getElementById('n1').value);
+        const d1 = parseFloat(document.getElementById('d1').value);
+        const n2 = parseFloat(document.getElementById('n2').value);
+        const d2 = parseFloat(document.getElementById('d2').value);
+        const alphaBetaRatio = parseFloat(document.getElementById('alphaBetaRatio').value);
+
+        if (
+            (isNaN(n1) && (isNaN(d1) || isNaN(n2) || isNaN(d2) || isNaN(alphaBetaRatio))) ||
+            (isNaN(d1) && (isNaN(n1) || isNaN(n2) || isNaN(d2) || isNaN(alphaBetaRatio))) ||
+            (isNaN(n2) && (isNaN(n1) || isNaN(d1) || isNaN(d2) || isNaN(alphaBetaRatio))) ||
+            (isNaN(d2) && (isNaN(n1) || isNaN(d1) || isNaN(n2) || isNaN(alphaBetaRatio))) ||
+            (isNaN(alphaBetaRatio) && (isNaN(n1) || isNaN(d1) || isNaN(n2) || isNaN(d2)))
+        ) {
+            alert('Hãy nhập lại các giá trị');
+            return;
+        }
+
+        if (isNaN(n1)) {
+            document.getElementById('n1').value = (n2 * d2 * (1 + d2 / alphaBetaRatio)) / (d1*( 1 + d1 / alphaBetaRatio)).toFixed(2);
+        } else if (isNaN(d1)) {
+            document.getElementById('d1').value = (Math.sqrt(alphaBetaRatio*(n2*d2)/n1*(1+d2/alphaBetaRatio)+(1/2 *alphaBetaRatio)^2)-(1/2 *alphaBetaRatio)).toFixed(2);
+        } else if (isNaN(n2)) {
+            document.getElementById('n2').value = (n1 * d1 * (1 + d1 / alphaBetaRatio)) / (d2*(1 + d2 / alphaBetaRatio)).toFixed(2);
+        } else if (isNaN(d2)) {
+            document.getElementById('d2').value = (Math.sqrt((alphaBetaRatio*n1*d1)/n2*(1+d1/alphaBetaRatio)+(1/2 *alphaBetaRatio)^2)- (1/2 *alphaBetaRatio)).toFixed(2);
+        } else if (isNaN(alphaBetaRatio)) {
+            document.getElementById('alphaBetaRatio').value = (n1 * d1 * (1 + d1 / alphaBetaRatio)) / (n2 * d2 * (1 + d2 / alphaBetaRatio)).toFixed(2);
+          }
+
+        }
+</script>
